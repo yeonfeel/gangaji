@@ -1,0 +1,66 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v1beta1/common/pingpong.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/common/v1beta1/pingpong": {
+      "post": {
+        "summary": "Send a ping and receive a pong",
+        "operationId": "PingPong",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/commonPong"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/commonPing"
+            }
+          }
+        ],
+        "tags": [
+          "PingTest"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "commonPing": {
+      "type": "object",
+      "properties": {
+        "ping": {
+          "type": "string"
+        }
+      },
+      "title": "Ping"
+    },
+    "commonPong": {
+      "type": "object",
+      "properties": {
+        "pong": {
+          "type": "string"
+        }
+      },
+      "title": "Pong"
+    }
+  }
+}

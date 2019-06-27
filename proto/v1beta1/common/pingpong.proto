@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package common;
+
+import "google/api/annotations.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "common";
+
+service PingTest {
+  // Send a ping and receive a pong
+  rpc PingPong(Ping) returns (Pong) {
+    option (google.api.http) = {
+      post: "/common/v1beta1/pingpong",
+      body: "*"
+    };
+  };
+}
+
+// Ping
+message Ping {
+  string ping = 1;
+}
+
+// Pong
+message Pong {
+  string pong = 1;
+}
+
+enum TestEnum {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  UNKNOWN_VALUE = 0 [(gogoproto.enumvalue_customname) = "TestEnumUnknown"];  // Unknown
+  FIRST_VALUE   = 1 [(gogoproto.enumvalue_customname) = "TestEnumFirst"];    // First
+}
+
+message TestMessage {
+  string test_id           = 1 [(gogoproto.customname) = "TestID", (gogoproto.moretags) = "bson:\"_id,omitempty\""];
+  string email             = 2;
+  string name              = 3;
+  int32 age                = 4;
+  map<string, string> tag  = 5;
+  string created           = 6;
+  TestEnum value           = 7;
+  string test_compound_key = 8 [(gogoproto.moretags) = "bson:\"test_compound_key\""];
+}
